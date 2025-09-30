@@ -1,0 +1,26 @@
+# Core dependencies
+modal==0.63.0
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+
+# Audio processing
+edge-tts==6.1.10
+soundfile==0.12.1
+librosa==0.10.1
+numpy==1.24.3
+scipy==1.11.4
+
+# RVC dependencies
+torch==2.1.0
+torchaudio==2.1.0
+praat-parselmouth==0.4.3
+pyworld==0.3.4
+torchcrepe==0.0.20
+onnxruntime==1.16.3
+faiss-cpu==1.7.4
+
+# Utilities
+python-multipart==0.0.6
+aiofiles==23.2.1
+httpx==0.25.2
