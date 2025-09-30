@@ -47,14 +47,11 @@ rvc_image = modal.Image.debian_slim(python_version="3.10").pip_install(
         "/models": models_volume,
         "/cache": cache_volume,
     },
-    concurrency_limit=10,
-    container_idle_timeout=300,  # 5 minute idle timeout
-    secrets=[modal.Secret.from_name("rvc-secrets")],  # Optional for API keys
+    max_containers=10,  # Changed from concurrency_limit
+    scaledown_window=300,  # Changed from container_idle_timeout
+    # secrets=[modal.Secret.from_name("rvc-secrets")],  # Commented out - not needed
 )
 class RVCPipeline:
-    def __init__(self):
-        self.setup_logging()
-        
     def setup_logging(self):
         logging.basicConfig(
             level=logging.INFO,
@@ -65,6 +62,7 @@ class RVCPipeline:
     @modal.enter()
     def load_models(self):
         """Load RVC models and initialize pipeline"""
+        self.setup_logging()  # Moved here from __init__
         import torch
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.logger.info(f"Using device: {self.device}")
